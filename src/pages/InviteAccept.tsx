@@ -78,7 +78,7 @@ export default function InviteAccept() {
             <h2 className="text-2xl font-bold text-zinc-50 mb-2">Invite Failed</h2>
             <p className="text-zinc-400 mb-8">{errorMessage}</p>
             <button 
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/dashboard')}
               className="bg-zinc-800 hover:bg-zinc-700 text-zinc-50 px-6 py-2.5 rounded-lg font-medium transition-colors"
             >
               Return to Dashboard
