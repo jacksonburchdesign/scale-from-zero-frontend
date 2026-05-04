@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { collection, query, orderBy, onSnapshot, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import WebhookSetup from '../components/WebhookSetup';
 import TeamManagement from '../components/TeamManagement';
@@ -47,7 +47,7 @@ interface ProjectData {
   };
 }
 
-function ChangelogCard({ log, onPublish, showPublishButton = true }: { log: Changelog, onPublish: (id: string) => void, showPublishButton?: boolean }) {
+function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true }: { log: Changelog, onPublish: (id: string) => void, onDelete?: (id: string) => void, showPublishButton?: boolean }) {
   const [activeTab, setActiveTab] = useState<'technical' | 'non-technical'>('non-technical');
 
   const renderThemeIcon = (theme: string | undefined) => {
@@ -97,14 +97,25 @@ function ChangelogCard({ log, onPublish, showPublishButton = true }: { log: Chan
           )}
         </div>
         
-        {showPublishButton && log.status === 'draft' && (
-          <button 
-            onClick={() => onPublish(log.id)}
-            className="bg-purple-600 hover:bg-purple-500 text-zinc-50 text-sm font-medium px-4 py-2 rounded-lg transition-colors focus:ring-2 focus:ring-purple-500 focus:outline-none flex-shrink-0 ml-4"
-          >
-            Publish Update
-          </button>
-        )}
+        <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+          {onDelete && log.status === 'draft' && (
+            <button 
+              onClick={() => onDelete(log.id)}
+              className="p-2 text-zinc-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-400/50"
+              title="Delete draft"
+            >
+              <Trash size={20} />
+            </button>
+          )}
+          {showPublishButton && log.status === 'draft' && (
+            <button 
+              onClick={() => onPublish(log.id)}
+              className="bg-purple-600 hover:bg-purple-500 text-zinc-50 text-sm font-medium px-4 py-2 rounded-lg transition-colors focus:ring-2 focus:ring-purple-500 focus:outline-none"
+            >
+              Publish Update
+            </button>
+          )}
+        </div>
       </div>
 
       {(log.technicalSummary || log.nonTechnicalSummary) ? (
@@ -399,6 +410,15 @@ export default function ProjectDetails() {
     }
   };
 
+  const handleDeleteChangelog = async (changelogId: string) => {
+    if (!projectId) return;
+    try {
+      await deleteDoc(doc(db, 'projects', projectId, 'changelogs', changelogId));
+    } catch (error) {
+      console.error('Failed to delete changelog', error);
+    }
+  };
+
   if (loading) {
     return <div className="p-8 text-zinc-400">Loading project data...</div>;
   }
@@ -651,7 +671,7 @@ export default function ProjectDetails() {
                 </h3>
                 <div className="space-y-6">
                   {(profileTab === 'technical' ? technicalChangelogs : nonTechnicalChangelogs).map(log => (
-                    <ChangelogCard key={log.id} log={log} onPublish={handlePublish} showPublishButton={true} />
+                    <ChangelogCard key={log.id} log={log} onPublish={handlePublish} onDelete={handleDeleteChangelog} showPublishButton={true} />
                   ))}
                   {changelogs.length === 0 && (
                     <p className="text-zinc-500 italic">No updates available.</p>
