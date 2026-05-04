@@ -55,7 +55,7 @@ export default function InviteAccept() {
       <div className="max-w-md w-full bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-2xl text-center">
         {status === 'verifying' && (
           <div className="flex flex-col items-center">
-            <Spinner size={48} className="text-indigo-500 animate-spin mb-6" />
+            <Spinner size={48} className="text-purple-500 animate-spin mb-6" />
             <h2 className="text-2xl font-bold text-zinc-50 mb-2">Verifying Invite</h2>
             <p className="text-zinc-400">Please wait while we secure your access...</p>
           </div>

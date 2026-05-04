@@ -52,7 +52,7 @@ export default function SiteHeader() {
             <Link
               to="/login"
               onClick={() => setIsMenuOpen(false)}
-              className="flex justify-center items-center w-full bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-4 rounded-xl text-base font-semibold transition-all"
+              className="flex justify-center items-center w-full bg-purple-600 hover:bg-purple-500 text-white px-5 py-4 rounded-xl text-base font-semibold transition-all"
             >
               Start Building
             </Link>
@@ -87,7 +87,7 @@ export default function SiteHeader() {
           <div className="flex justify-end items-center">
             <Link
               to="/login"
-              className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-all"
+              className="bg-purple-600 hover:bg-purple-500 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-all"
             >
               Start Building
             </Link>

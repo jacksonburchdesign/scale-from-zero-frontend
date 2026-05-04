@@ -69,7 +69,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
               placeholder="e.g. Acme SaaS"
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-50 placeholder-zinc-600 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-shadow"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-50 placeholder-zinc-600 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-shadow"
               required
             />
           </div>
@@ -84,7 +84,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
               value={githubRepoFullName}
               onChange={(e) => setGithubRepoFullName(e.target.value)}
               placeholder="e.g. octocat/Hello-World"
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-50 placeholder-zinc-600 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-shadow font-mono text-sm"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-50 placeholder-zinc-600 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-shadow font-mono text-sm"
               required
             />
           </div>
@@ -99,7 +99,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="A brief overview of your product..."
               rows={3}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-50 placeholder-zinc-600 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-shadow resize-none"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-50 placeholder-zinc-600 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-shadow resize-none"
             />
           </div>
 
@@ -115,7 +115,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 text-zinc-50 px-5 py-2.5 rounded-lg font-medium transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              className="bg-purple-600 hover:bg-purple-500 disabled:bg-purple-600/50 text-zinc-50 px-5 py-2.5 rounded-lg font-medium transition-colors focus:ring-2 focus:ring-purple-500 focus:outline-none"
             >
               {isSubmitting ? 'Creating...' : 'Create Project'}
             </button>

@@ -13,7 +13,7 @@ export default function Signup() {
         
         <div className="text-center text-sm text-zinc-500">
           Already have an account?{' '}
-          <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium">
+          <Link to="/login" className="text-purple-400 hover:text-purple-300 font-medium">
             Log in here
           </Link>
         </div>

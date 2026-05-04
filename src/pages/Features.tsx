@@ -12,8 +12,8 @@ export default function Features() {
 
       <div className="grid md:grid-cols-3 gap-8">
         <div className="bg-zinc-900/30 backdrop-blur-xl border border-white/10 p-10 rounded-3xl flex flex-col items-center text-center">
-          <div className="w-16 h-16 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center mb-6">
-            <Sparkle size={32} className="text-indigo-400" weight="duotone" />
+          <div className="w-16 h-16 bg-purple-500/20 border border-purple-500/30 rounded-2xl flex items-center justify-center mb-6">
+            <Sparkle size={32} className="text-purple-400" weight="duotone" />
           </div>
           <h3 className="text-2xl font-bold text-zinc-50 mb-4">AI Changelogs</h3>
           <p className="text-zinc-400 leading-relaxed">
@@ -22,8 +22,8 @@ export default function Features() {
         </div>
 
         <div className="bg-zinc-900/30 backdrop-blur-xl border border-white/10 p-10 rounded-3xl flex flex-col items-center text-center">
-          <div className="w-16 h-16 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center mb-6">
-            <ChartLineUp size={32} className="text-indigo-400" weight="duotone" />
+          <div className="w-16 h-16 bg-purple-500/20 border border-purple-500/30 rounded-2xl flex items-center justify-center mb-6">
+            <ChartLineUp size={32} className="text-purple-400" weight="duotone" />
           </div>
           <h3 className="text-2xl font-bold text-zinc-50 mb-4">The Builder Score</h3>
           <p className="text-zinc-400 leading-relaxed">
@@ -32,8 +32,8 @@ export default function Features() {
         </div>
 
         <div className="bg-zinc-900/30 backdrop-blur-xl border border-white/10 p-10 rounded-3xl flex flex-col items-center text-center">
-          <div className="w-16 h-16 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center mb-6">
-            <Users size={32} className="text-indigo-400" weight="duotone" />
+          <div className="w-16 h-16 bg-purple-500/20 border border-purple-500/30 rounded-2xl flex items-center justify-center mb-6">
+            <Users size={32} className="text-purple-400" weight="duotone" />
           </div>
           <h3 className="text-2xl font-bold text-zinc-50 mb-4">Team Collaboration</h3>
           <p className="text-zinc-400 leading-relaxed">

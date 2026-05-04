@@ -22,7 +22,7 @@ export default function Home() {
 
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
               Build in Public.<br />
-              <span className="text-indigo-600">
+              <span className="text-purple-600">
                 Without the Friction.
               </span>
             </h1>
@@ -34,12 +34,12 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <button
                 onClick={() => navigate('/login')}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all"
               >
                 <GithubLogo size={24} weight="fill" />
                 Continue with GitHub
               </button>
-              <div className="flex items-center justify-center w-full sm:w-auto text-indigo-600">
+              <div className="flex items-center justify-center w-full sm:w-auto text-purple-600">
                 <ArrowUp size={28} weight="bold" className="animate-bounce sm:hidden" />
                 <ArrowLeft size={28} weight="bold" className="hidden sm:block animate-bounce-left" />
               </div>
@@ -59,21 +59,21 @@ export default function Home() {
                   <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-zinc-400 space-y-1">
-                  <div className="flex gap-2"><span className="text-indigo-400">~</span><span>git commit -m "feat: migrate auth to postgres and add redis caching"</span></div>
-                  <div className="flex gap-2"><span className="text-indigo-400">~</span><span>git push origin main</span></div>
+                  <div className="flex gap-2"><span className="text-purple-400">~</span><span>git commit -m "feat: migrate auth to postgres and add redis caching"</span></div>
+                  <div className="flex gap-2"><span className="text-purple-400">~</span><span>git push origin main</span></div>
                 </div>
               </div>
 
               {/* Transformation Arrow */}
               <div className="flex justify-center -my-2 relative z-10">
-                <ArrowDown size={28} weight="bold" className="text-indigo-600 drop-shadow-md" />
+                <ArrowDown size={28} weight="bold" className="text-purple-600 drop-shadow-md" />
               </div>
 
               {/* Public Changelog Output */}
-              <div className="bg-zinc-950 rounded-xl border border-indigo-400/20 p-5 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
+              <div className="bg-zinc-950 rounded-xl border border-purple-400/20 p-5 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-purple-400"></div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded bg-indigo-400/10 text-indigo-400 text-[10px] font-bold uppercase tracking-wider">Shipped</span>
+                  <span className="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400 text-[10px] font-bold uppercase tracking-wider">Shipped</span>
                   <span className="text-xs text-zinc-500 font-mono">Just now</span>
                 </div>
                 <h3 className="text-zinc-50 font-semibold mb-2">Sign-in is now 10x faster ⚡️</h3>
@@ -133,12 +133,12 @@ export default function Home() {
                 </div>
 
                 {/* Back */}
-                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-indigo-900/10 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-purple-900/10 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6 flex flex-col justify-center items-center text-center">
                   <div className="font-mono text-xs text-zinc-400 mb-4 bg-zinc-950/80 p-3 rounded-lg border border-white/5 w-full text-left overflow-hidden">
-                    <span className="text-indigo-400">git</span> commit -m "fix mem leak"
+                    <span className="text-purple-400">git</span> commit -m "fix mem leak"
                   </div>
-                  <ArrowDown size={20} className="text-indigo-400 mb-4" weight="bold" />
-                  <div className="text-sm font-medium text-zinc-200 bg-indigo-600/20 p-4 rounded-xl border border-indigo-500/20 w-full">
+                  <ArrowDown size={20} className="text-purple-400 mb-4" weight="bold" />
+                  <div className="text-sm font-medium text-zinc-200 bg-purple-600/20 p-4 rounded-xl border border-purple-500/20 w-full">
                     "System stability improved for smoother performance! 🚀"
                   </div>
                 </div>
@@ -168,9 +168,9 @@ export default function Home() {
                 </div>
 
                 {/* Back */}
-                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-indigo-900/10 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-6 flex flex-col justify-center items-center">
+                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-purple-900/10 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6 flex flex-col justify-center items-center">
                   <div className="text-5xl font-bold text-white mb-2 tracking-tight">98</div>
-                  <div className="text-xs text-indigo-400 uppercase tracking-widest font-bold mb-6">Builder Score</div>
+                  <div className="text-xs text-purple-400 uppercase tracking-widest font-bold mb-6">Builder Score</div>
                   
                   <div className="flex flex-wrap justify-center gap-2 mb-6">
                     <span className="px-3 py-1.5 rounded-lg bg-zinc-950/80 border border-white/5 text-xs text-zinc-300 font-medium">React</span>
@@ -205,14 +205,14 @@ export default function Home() {
                 </div>
 
                 {/* Back */}
-                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-indigo-900/10 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-6 flex flex-col justify-center">
-                  <h4 className="text-sm font-bold text-indigo-400 mb-4 text-center uppercase tracking-wider">Project Access</h4>
+                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-purple-900/10 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6 flex flex-col justify-center">
+                  <h4 className="text-sm font-bold text-purple-400 mb-4 text-center uppercase tracking-wider">Project Access</h4>
                   <div className="space-y-3 w-full">
                     <div className="flex items-center justify-between bg-zinc-950/80 p-3 rounded-lg border border-white/5">
                       <span className="text-sm text-zinc-200 flex items-center gap-2 font-medium">
-                        <div className="w-6 h-6 rounded bg-indigo-500 flex items-center justify-center text-xs text-white">J</div> jacks
+                        <div className="w-6 h-6 rounded bg-purple-500 flex items-center justify-center text-xs text-white">J</div> jacks
                       </span>
-                      <span className="text-xs text-indigo-400 font-mono">Admin</span>
+                      <span className="text-xs text-purple-400 font-mono">Admin</span>
                     </div>
                     <div className="flex items-center justify-between bg-zinc-950/80 p-3 rounded-lg border border-white/5">
                       <span className="text-sm text-zinc-200 flex items-center gap-2 font-medium">
@@ -252,16 +252,16 @@ export default function Home() {
               </div>
               <div className="flex-1 w-full bg-zinc-900/30 backdrop-blur-xl border border-white/10 rounded-xl p-5 order-3 md:order-3">
                 <div className="font-mono text-sm text-zinc-400">
-                  <span className="text-indigo-400">git</span> commit -m "fix memory leak in worker"
+                  <span className="text-purple-400">git</span> commit -m "fix memory leak in worker"
                 </div>
               </div>
             </div>
 
             {/* Step 2 */}
             <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center">
-              <div className="flex-1 w-full bg-zinc-900/30 backdrop-blur-xl border border-white/10 rounded-xl p-5 border-t-2 md:border-t-0 md:border-l-2 border-indigo-500 relative order-3 md:order-1">
+              <div className="flex-1 w-full bg-zinc-900/30 backdrop-blur-xl border border-white/10 rounded-xl p-5 border-t-2 md:border-t-0 md:border-l-2 border-purple-500 relative order-3 md:order-1">
                 <div className="absolute top-2 right-2 flex gap-1">
-                  <Sparkle size={16} className="text-indigo-400" />
+                  <Sparkle size={16} className="text-purple-400" />
                 </div>
                 <div className="font-sans text-sm text-zinc-300 mt-2 md:mt-0">
                   <strong>AI Summary:</strong> Resolved an issue causing high memory usage in background tasks. System stability is improved.
@@ -288,7 +288,7 @@ export default function Home() {
                 3
               </div>
               <div className="flex-1 w-full bg-zinc-900/30 backdrop-blur-xl border border-white/10 rounded-xl p-5 flex items-center justify-center gap-3 text-zinc-300 font-medium order-3 md:order-3">
-                <RocketLaunch size={24} weight="duotone" className="text-indigo-400" />
+                <RocketLaunch size={24} weight="duotone" className="text-purple-400" />
                 Update Shipped to Public Profile
               </div>
             </div>
@@ -360,7 +360,7 @@ export default function Home() {
           </p>
           <button
             onClick={() => navigate('/login')}
-            className="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-10 py-5 rounded-2xl text-xl font-bold transition-all hover:-translate-y-1"
+            className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-10 py-5 rounded-2xl text-xl font-bold transition-all hover:-translate-y-1"
           >
             Claim Your Profile
             <ArrowRight size={24} weight="bold" />

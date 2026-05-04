@@ -21,29 +21,29 @@ export default function SiteFooter() {
           <div className="md:col-span-2">
             <h4 className="text-white font-semibold mb-6">Product</h4>
             <ul className="space-y-4 text-sm font-medium">
-              <li><Link to="/features" className="text-zinc-400 hover:text-indigo-400 transition-colors">Features</Link></li>
-              <li><Link to="/how-it-works" className="text-zinc-400 hover:text-indigo-400 transition-colors">How it works</Link></li>
-              <li><Link to="/pricing" className="text-zinc-400 hover:text-indigo-400 transition-colors">Pricing</Link></li>
-              <li><Link to="/login" className="text-zinc-400 hover:text-indigo-400 transition-colors">Log In</Link></li>
+              <li><Link to="/features" className="text-zinc-400 hover:text-purple-400 transition-colors">Features</Link></li>
+              <li><Link to="/how-it-works" className="text-zinc-400 hover:text-purple-400 transition-colors">How it works</Link></li>
+              <li><Link to="/pricing" className="text-zinc-400 hover:text-purple-400 transition-colors">Pricing</Link></li>
+              <li><Link to="/login" className="text-zinc-400 hover:text-purple-400 transition-colors">Log In</Link></li>
             </ul>
           </div>
 
           <div className="md:col-span-2">
             <h4 className="text-white font-semibold mb-6">Resources</h4>
             <ul className="space-y-4 text-sm font-medium">
-              <li><Link to="/docs" className="text-zinc-400 hover:text-indigo-400 transition-colors">Documentation</Link></li>
-              <li><Link to="/changelog" className="text-zinc-400 hover:text-indigo-400 transition-colors">Changelog</Link></li>
-              <li><Link to="/builder-score" className="text-zinc-400 hover:text-indigo-400 transition-colors">Builder Score</Link></li>
-              <li><Link to="/blog" className="text-zinc-400 hover:text-indigo-400 transition-colors">Blog</Link></li>
+              <li><Link to="/docs" className="text-zinc-400 hover:text-purple-400 transition-colors">Documentation</Link></li>
+              <li><Link to="/changelog" className="text-zinc-400 hover:text-purple-400 transition-colors">Changelog</Link></li>
+              <li><Link to="/builder-score" className="text-zinc-400 hover:text-purple-400 transition-colors">Builder Score</Link></li>
+              <li><Link to="/blog" className="text-zinc-400 hover:text-purple-400 transition-colors">Blog</Link></li>
             </ul>
           </div>
 
           <div className="md:col-span-3">
             <h4 className="text-white font-semibold mb-6">Legal</h4>
             <ul className="space-y-4 text-sm font-medium">
-              <li><Link to="/privacy" className="text-zinc-400 hover:text-indigo-400 transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-zinc-400 hover:text-indigo-400 transition-colors">Terms of Service</Link></li>
-              <li><Link to="/acceptable-use" className="text-zinc-400 hover:text-indigo-400 transition-colors">Acceptable Use</Link></li>
+              <li><Link to="/privacy" className="text-zinc-400 hover:text-purple-400 transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="text-zinc-400 hover:text-purple-400 transition-colors">Terms of Service</Link></li>
+              <li><Link to="/acceptable-use" className="text-zinc-400 hover:text-purple-400 transition-colors">Acceptable Use</Link></li>
             </ul>
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function SiteFooter() {
             {new Date().getFullYear()} ScaleFromZero. All rights reserved.
           </p>
           <p className="text-zinc-500 text-sm font-medium">
-            Created by: <a href="https://jacksonburch.cloud/scalefromzero" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 transition-colors">Jackson Burch</a>
+            Created by: <a href="https://jacksonburch.cloud/scalefromzero" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors">Jackson Burch</a>
           </p>
         </div>
       </div>

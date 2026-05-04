@@ -59,7 +59,7 @@ export default function TeamManagement({ projectId, members }: TeamManagementPro
           <button
             onClick={generateInvite}
             disabled={isGenerating}
-            className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-800/50 text-zinc-50 px-4 py-2 rounded-lg font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-800/50 text-zinc-50 px-4 py-2 rounded-lg font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           >
             <Link size={16} />
             {isGenerating ? 'Generating...' : 'Generate Invite Link'}

@@ -29,7 +29,7 @@ export default function Changelog() {
         {updates.map((update, idx) => (
           <div key={idx} className="bg-zinc-900/30 backdrop-blur-xl border border-white/10 p-8 rounded-3xl relative">
             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-sm font-bold w-fit">
+              <span className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1 rounded-full text-sm font-bold w-fit">
                 {update.version}
               </span>
               <span className="text-zinc-500 text-sm font-medium">{update.date}</span>

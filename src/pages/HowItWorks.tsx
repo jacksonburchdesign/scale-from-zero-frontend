@@ -34,7 +34,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="bg-zinc-900/30 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-3xl flex flex-col md:flex-row gap-8 items-center">
-          <div className="flex-shrink-0 w-20 h-20 bg-indigo-600 border border-indigo-500 rounded-2xl flex items-center justify-center text-3xl font-extrabold text-white">
+          <div className="flex-shrink-0 w-20 h-20 bg-purple-600 border border-purple-500 rounded-2xl flex items-center justify-center text-3xl font-extrabold text-white">
             3
           </div>
           <div>

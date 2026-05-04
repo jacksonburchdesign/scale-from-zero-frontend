@@ -18,9 +18,9 @@ export default function Blog() {
             </div>
             <div className="p-8">
               <div className="flex gap-2 mb-4">
-                <span className="text-indigo-400 text-xs font-bold uppercase tracking-wider">Engineering</span>
+                <span className="text-purple-400 text-xs font-bold uppercase tracking-wider">Engineering</span>
               </div>
-              <h2 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">How we use Vertex AI to parse complex git histories</h2>
+              <h2 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">How we use Vertex AI to parse complex git histories</h2>
               <p className="text-zinc-400 text-sm line-clamp-3">
                 Translating raw developer logs into investor-ready updates requires more than just a simple LLM prompt. Here is a deep dive into our pipeline.
               </p>

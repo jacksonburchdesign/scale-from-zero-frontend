@@ -22,19 +22,19 @@ export default function Pricing() {
           
           <ul className="space-y-4 mb-10 flex-1">
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-500" weight="bold" />
+              <Check size={20} className="text-purple-500" weight="bold" />
               <span>1 connected GitHub account</span>
             </li>
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-500" weight="bold" />
+              <Check size={20} className="text-purple-500" weight="bold" />
               <span>Unlimited public changelogs</span>
             </li>
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-500" weight="bold" />
+              <Check size={20} className="text-purple-500" weight="bold" />
               <span>Basic Vertex AI commit translations</span>
             </li>
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-500" weight="bold" />
+              <Check size={20} className="text-purple-500" weight="bold" />
               <span>Standard Builder Score</span>
             </li>
           </ul>
@@ -45,8 +45,8 @@ export default function Pricing() {
         </div>
 
         {/* Pro Tier */}
-        <div className="bg-indigo-600/10 backdrop-blur-xl border border-indigo-500/30 p-10 rounded-3xl flex flex-col relative">
-          <div className="absolute top-0 right-8 -translate-y-1/2 bg-indigo-500 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide">
+        <div className="bg-purple-600/10 backdrop-blur-xl border border-purple-500/30 p-10 rounded-3xl flex flex-col relative">
+          <div className="absolute top-0 right-8 -translate-y-1/2 bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide">
             RECOMMENDED
           </div>
           <h2 className="text-2xl font-bold text-zinc-50 mb-2">Pro Team</h2>
@@ -58,24 +58,24 @@ export default function Pricing() {
           
           <ul className="space-y-4 mb-10 flex-1">
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-400" weight="bold" />
+              <Check size={20} className="text-purple-400" weight="bold" />
               <span>Unlimited GitHub accounts</span>
             </li>
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-400" weight="bold" />
+              <Check size={20} className="text-purple-400" weight="bold" />
               <span>Custom domain support</span>
             </li>
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-400" weight="bold" />
+              <Check size={20} className="text-purple-400" weight="bold" />
               <span>Advanced AI tone customization</span>
             </li>
             <li className="flex items-center gap-3 text-zinc-300">
-              <Check size={20} className="text-indigo-400" weight="bold" />
+              <Check size={20} className="text-purple-400" weight="bold" />
               <span>Team Builder Score analytics</span>
             </li>
           </ul>
           
-          <button className="w-full py-4 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors">
+          <button className="w-full py-4 rounded-xl font-bold text-white bg-purple-600 hover:bg-purple-500 transition-colors">
             Upgrade to Pro
           </button>
         </div>
