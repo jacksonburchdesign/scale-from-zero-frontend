@@ -9,6 +9,7 @@ import { PaperPlaneRight, PencilSimple, Clock, GithubLogo, TwitterLogo, Linkedin
 import EditableField from '../components/EditableField';
 import ImageUpload from '../components/ImageUpload';
 import DailyCommitStack from '../components/DailyCommitStack';
+import ReactMarkdown from 'react-markdown';
 
 interface Changelog {
   id: string;
@@ -52,7 +53,7 @@ export interface ProjectData {
   installationId?: number;
 }
 
-function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true, mode = 'non-technical' }: { log: Changelog, onPublish: (id: string) => void, onDelete?: (id: string) => void, showPublishButton?: boolean, mode?: 'technical' | 'non-technical' }) {
+function ChangelogCard({ log, onPublish, onDelete, onRegenerate, showPublishButton = true, mode = 'non-technical' }: { log: Changelog, onPublish: (id: string) => void, onDelete?: (id: string) => void, onRegenerate?: (id: string) => void, showPublishButton?: boolean, mode?: 'technical' | 'non-technical' }) {
   const renderThemeIcon = (theme: string | undefined) => {
     switch (theme) {
       case 'Feature': return '✨ Feature';
@@ -101,6 +102,15 @@ function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true, mod
         </div>
         
         <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+          {onRegenerate && (log.rawCommit || log.rawCommits) && (
+            <button 
+              onClick={() => onRegenerate(log.id)}
+              className="p-2 text-zinc-500 hover:text-blue-400 hover:bg-blue-400/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+              title="Regenerate AI Summary"
+            >
+              <Sparkle size={20} />
+            </button>
+          )}
           {onDelete && (
             <button 
               onClick={() => onDelete(log.id)}
@@ -123,10 +133,10 @@ function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true, mod
 
       {(log.technicalSummary || log.nonTechnicalSummary) ? (
         <div className="mt-6">
-          <div className="prose prose-invert max-w-none">
-            <p className="text-zinc-300 leading-relaxed max-w-prose whitespace-pre-wrap">
-              {mode === 'technical' ? log.technicalSummary : log.nonTechnicalSummary}
-            </p>
+          <div className="prose prose-invert prose-sm max-w-none prose-p:text-zinc-300 prose-headings:text-zinc-100 prose-a:text-purple-400 prose-strong:text-zinc-200">
+            <ReactMarkdown>
+              {mode === 'technical' ? (log.technicalSummary || '') : (log.nonTechnicalSummary || '')}
+            </ReactMarkdown>
           </div>
         </div>
       ) : (
@@ -447,6 +457,17 @@ export default function ProjectDetails() {
     }
   };
 
+  const handleRegenerateChangelog = async (changelogId: string) => {
+    if (!projectId) return;
+    try {
+      const regenerateChangelog = httpsCallable(functions, 'regenerateChangelog');
+      await regenerateChangelog({ projectId, changelogId });
+    } catch (error) {
+      console.error('Failed to regenerate changelog:', error);
+      alert('Failed to regenerate changelog. Check console for details.');
+    }
+  };
+
   if (loading) {
     return <div className="p-8 text-zinc-400">Loading project data...</div>;
   }
@@ -762,7 +783,7 @@ export default function ProjectDetails() {
 
                   {/* Render Drafts and Published Changelogs */}
                   {(profileTab === 'technical' ? technicalChangelogs : nonTechnicalChangelogs).map(log => (
-                    <ChangelogCard key={log.id} log={log} onPublish={handlePublish} onDelete={handleDeleteChangelog} showPublishButton={true} mode={profileTab} />
+                    <ChangelogCard key={log.id} log={log} onPublish={handlePublish} onDelete={handleDeleteChangelog} onRegenerate={handleRegenerateChangelog} showPublishButton={true} mode={profileTab} />
                   ))}
                   
                   {changelogs.length === 0 && Object.keys(groupedRawCommits).length === 0 && (
