@@ -5,7 +5,7 @@ import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../lib/firebase';
 import WebhookSetup from '../components/WebhookSetup';
 import TeamManagement from '../components/TeamManagement';
-import { PaperPlaneRight, PencilSimple, Clock, GithubLogo, TwitterLogo, LinkedinLogo, Globe, DiscordLogo, Link as LinkIcon, Plus, Trash, Check, X } from '@phosphor-icons/react';
+import { PaperPlaneRight, PencilSimple, Clock, GithubLogo, TwitterLogo, LinkedinLogo, Globe, DiscordLogo, Link as LinkIcon, Plus, Trash, Check, X, Sparkle } from '@phosphor-icons/react';
 import EditableField from '../components/EditableField';
 import ImageUpload from '../components/ImageUpload';
 
@@ -46,6 +46,7 @@ interface ProjectData {
     hideCoverImage?: boolean;
     primaryColor?: string;
   };
+  githubRepoFullName?: string;
 }
 
 function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true, mode = 'non-technical' }: { log: Changelog, onPublish: (id: string) => void, onDelete?: (id: string) => void, showPublishButton?: boolean, mode?: 'technical' | 'non-technical' }) {
@@ -329,6 +330,7 @@ export default function ProjectDetails() {
   const [projectData, setProjectData] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
   const [isCompiling, setIsCompiling] = useState(false);
+  const [isGeneratingProfile, setIsGeneratingProfile] = useState(false);
   
   const [mainTab, setMainTab] = useState<'profile' | 'configure'>('profile');
   const [profileTab, setProfileTab] = useState<'technical' | 'non-technical'>('non-technical');
@@ -415,6 +417,19 @@ export default function ProjectDetails() {
       console.error('Failed to compile daily drafts:', error);
     } finally {
       setIsCompiling(false);
+    }
+  };
+
+  const handleGenerateProfile = async () => {
+    if (!projectId || !projectData?.githubRepoFullName) return;
+    setIsGeneratingProfile(true);
+    try {
+      const generateProjectProfile = httpsCallable(functions, 'generateProjectProfile');
+      await generateProjectProfile({ projectId });
+    } catch (error) {
+      console.error('Failed to generate project profile:', error);
+    } finally {
+      setIsGeneratingProfile(false);
     }
   };
 
@@ -513,6 +528,33 @@ export default function ProjectDetails() {
                 </div>
               </div>
             </div>
+          </div>
+
+
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 space-y-6">
+            <div className="border-b border-zinc-800 pb-4">
+              <h2 className="text-xl font-bold text-zinc-50 flex items-center gap-2">
+                <Sparkle weight="fill" className="text-[var(--theme-primary)]" />
+                AI Automation
+              </h2>
+              <p className="text-sm text-zinc-400 mt-1">Automatically populate your public profile based on your connected GitHub repository.</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-medium text-zinc-50">Generate Profile Details</h3>
+                <p className="text-sm text-zinc-400 mt-0.5">We will analyze your repository's README and code to intelligently fill out your executive summary, problem statement, technical summary, and tech stack.</p>
+              </div>
+              <button 
+                onClick={handleGenerateProfile}
+                disabled={!projectData?.githubRepoFullName || isGeneratingProfile}
+                className="px-4 py-2 bg-[var(--theme-primary)] hover:opacity-90 border border-transparent rounded-lg text-sm font-semibold text-zinc-50 transition-all disabled:opacity-50 disabled:bg-zinc-800 disabled:border-zinc-700 whitespace-nowrap flex-shrink-0 ml-6"
+              >
+                {isGeneratingProfile ? 'Generating...' : 'Auto-Generate from GitHub'}
+              </button>
+            </div>
+            {!projectData?.githubRepoFullName && (
+              <p className="text-xs text-red-400">You must have a connected GitHub repository to use this feature.</p>
+            )}
           </div>
 
           {projectId && <WebhookSetup projectId={projectId} lastVercelDeploy={projectData?.lastVercelDeploy} />}
