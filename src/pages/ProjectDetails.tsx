@@ -28,7 +28,7 @@ export interface SocialLink {
   url: string;
 }
 
-interface ProjectData {
+export interface ProjectData {
   projectName?: string;
   description?: string;
   members?: Record<string, string>;
@@ -46,7 +46,9 @@ interface ProjectData {
     hideCoverImage?: boolean;
     primaryColor?: string;
   };
-  githubRepoFullName?: string;
+  githubRepoFullName?: string; // Legacy
+  connectedRepos?: string[];
+  installationId?: number;
 }
 
 function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true, mode = 'non-technical' }: { log: Changelog, onPublish: (id: string) => void, onDelete?: (id: string) => void, showPublishButton?: boolean, mode?: 'technical' | 'non-technical' }) {
@@ -557,7 +559,7 @@ export default function ProjectDetails() {
             )}
           </div>
 
-          {projectId && <WebhookSetup projectId={projectId} lastVercelDeploy={projectData?.lastVercelDeploy} />}
+          {projectId && <WebhookSetup projectId={projectId} projectData={projectData as ProjectData} onUpdate={handleUpdateProject} />}
           {projectId && projectData?.members && (
             <TeamManagement projectId={projectId} members={projectData.members} />
           )}

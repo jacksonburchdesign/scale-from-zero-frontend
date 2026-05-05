@@ -14,6 +14,7 @@ import Signup from './pages/Signup';
 import ProjectDetails from './pages/ProjectDetails';
 import InviteAccept from './pages/InviteAccept';
 import Settings from './pages/Settings';
+import GitHubCallback from './pages/GitHubCallback';
 
 // Marketing Pages
 import Features from './pages/Features';
@@ -127,6 +128,23 @@ function App() {
         >
           <Route index element={<ProjectDetails />} />
         </Route>
+        <Route
+          path="/project/:projectId/github/callback"
+          element={
+            <ProtectedRoute>
+              <GitHubCallback />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/github/callback"
+          element={
+            <ProtectedRoute>
+              <GitHubCallback />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
