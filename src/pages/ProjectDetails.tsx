@@ -8,10 +8,11 @@ import TeamManagement from '../components/TeamManagement';
 import { PaperPlaneRight, PencilSimple, Clock, GithubLogo, TwitterLogo, LinkedinLogo, Globe, DiscordLogo, Link as LinkIcon, Plus, Trash, Check, X, Sparkle } from '@phosphor-icons/react';
 import EditableField from '../components/EditableField';
 import ImageUpload from '../components/ImageUpload';
+import DailyCommitStack from '../components/DailyCommitStack';
 
 interface Changelog {
   id: string;
-  status: 'draft' | 'published';
+  status: 'draft' | 'published' | 'raw-commit';
   createdAt: any;
   technicalSummary?: string;
   nonTechnicalSummary?: string;
@@ -435,12 +436,37 @@ export default function ProjectDetails() {
     }
   };
 
+  const handleGenerateDailyChangelog = async (changelogIds: string[]) => {
+    if (!projectId) return;
+    try {
+      const generateDailyChangelog = httpsCallable(functions, 'generateDailyChangelog');
+      await generateDailyChangelog({ projectId, changelogIds });
+    } catch (error) {
+      console.error('Failed to generate daily changelog:', error);
+      throw error;
+    }
+  };
+
   if (loading) {
     return <div className="p-8 text-zinc-400">Loading project data...</div>;
   }
 
-  const technicalChangelogs = changelogs.filter(log => log.technicalSummary || log.content);
-  const nonTechnicalChangelogs = changelogs.filter(log => log.nonTechnicalSummary || log.content);
+  const technicalChangelogs = changelogs.filter(log => log.status !== 'raw-commit' && (log.technicalSummary || log.content));
+  const nonTechnicalChangelogs = changelogs.filter(log => log.status !== 'raw-commit' && (log.nonTechnicalSummary || log.content));
+
+  const rawCommits = changelogs.filter(log => log.status === 'raw-commit');
+  const groupedRawCommits = rawCommits.reduce((acc, log) => {
+    if (!log.createdAt?.toDate) return acc;
+    const dateStr = log.createdAt.toDate().toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    if (!acc[dateStr]) acc[dateStr] = [];
+    acc[dateStr].push(log);
+    return acc;
+  }, {} as Record<string, any[]>);
 
   return (
     <div 
@@ -724,10 +750,22 @@ export default function ProjectDetails() {
                   )}
                 </div>
                 <div className="space-y-6">
+                  {/* Render Daily Commit Stacks first */}
+                  {Object.entries(groupedRawCommits).map(([dateStr, commits]) => (
+                    <DailyCommitStack 
+                      key={dateStr} 
+                      dateString={dateStr} 
+                      commits={commits as any} 
+                      onGenerate={handleGenerateDailyChangelog} 
+                    />
+                  ))}
+
+                  {/* Render Drafts and Published Changelogs */}
                   {(profileTab === 'technical' ? technicalChangelogs : nonTechnicalChangelogs).map(log => (
                     <ChangelogCard key={log.id} log={log} onPublish={handlePublish} onDelete={handleDeleteChangelog} showPublishButton={true} mode={profileTab} />
                   ))}
-                  {changelogs.length === 0 && (
+                  
+                  {changelogs.length === 0 && Object.keys(groupedRawCommits).length === 0 && (
                     <p className="text-zinc-500 italic">No updates available.</p>
                   )}
                 </div>
