@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { httpsCallable } from 'firebase/functions';
+import { db, functions } from '../lib/firebase';
 import WebhookSetup from '../components/WebhookSetup';
 import TeamManagement from '../components/TeamManagement';
 import { PaperPlaneRight, PencilSimple, Clock, GithubLogo, TwitterLogo, LinkedinLogo, Globe, DiscordLogo, Link as LinkIcon, Plus, Trash, Check, X } from '@phosphor-icons/react';
@@ -47,9 +48,7 @@ interface ProjectData {
   };
 }
 
-function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true }: { log: Changelog, onPublish: (id: string) => void, onDelete?: (id: string) => void, showPublishButton?: boolean }) {
-  const [activeTab, setActiveTab] = useState<'technical' | 'non-technical'>('non-technical');
-
+function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true, mode = 'non-technical' }: { log: Changelog, onPublish: (id: string) => void, onDelete?: (id: string) => void, showPublishButton?: boolean, mode?: 'technical' | 'non-technical' }) {
   const renderThemeIcon = (theme: string | undefined) => {
     switch (theme) {
       case 'Feature': return '✨ Feature';
@@ -98,7 +97,7 @@ function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true }: {
         </div>
         
         <div className="flex items-center gap-2 ml-4 flex-shrink-0">
-          {onDelete && log.status === 'draft' && (
+          {onDelete && (
             <button 
               onClick={() => onDelete(log.id)}
               className="p-2 text-zinc-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-400/50"
@@ -120,23 +119,9 @@ function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true }: {
 
       {(log.technicalSummary || log.nonTechnicalSummary) ? (
         <div className="mt-6">
-          <div className="flex border-b border-zinc-800 mb-4">
-            <button 
-              onClick={() => setActiveTab('non-technical')}
-              className={`pb-2 px-4 text-sm font-medium transition-colors border-b-2 ${activeTab === 'non-technical' ? 'border-purple-500 text-zinc-50' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
-            >
-              Non-Technical
-            </button>
-            <button 
-              onClick={() => setActiveTab('technical')}
-              className={`pb-2 px-4 text-sm font-medium transition-colors border-b-2 ${activeTab === 'technical' ? 'border-purple-500 text-zinc-50' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
-            >
-              Technical
-            </button>
-          </div>
           <div className="prose prose-invert max-w-none">
             <p className="text-zinc-300 leading-relaxed max-w-prose whitespace-pre-wrap">
-              {activeTab === 'technical' ? log.technicalSummary : log.nonTechnicalSummary}
+              {mode === 'technical' ? log.technicalSummary : log.nonTechnicalSummary}
             </p>
           </div>
         </div>
@@ -148,7 +133,7 @@ function ChangelogCard({ log, onPublish, onDelete, showPublishButton = true }: {
         </div>
       )}
       
-      {(log.rawCommit || log.rawCommits) && (
+      {(log.rawCommit || log.rawCommits) && mode === 'technical' && (
         <div className="mt-6 pt-4 border-t border-zinc-800/50">
           <p className="text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">Raw Commit (Internal)</p>
           <code className="block bg-zinc-950 p-3 rounded-lg text-zinc-400 text-xs font-mono whitespace-pre-wrap border border-zinc-800/50">
@@ -343,6 +328,7 @@ export default function ProjectDetails() {
   const [changelogs, setChangelogs] = useState<Changelog[]>([]);
   const [projectData, setProjectData] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isCompiling, setIsCompiling] = useState(false);
   
   const [mainTab, setMainTab] = useState<'profile' | 'configure'>('profile');
   const [profileTab, setProfileTab] = useState<'technical' | 'non-technical'>('non-technical');
@@ -416,6 +402,19 @@ export default function ProjectDetails() {
       await deleteDoc(doc(db, 'projects', projectId, 'changelogs', changelogId));
     } catch (error) {
       console.error('Failed to delete changelog', error);
+    }
+  };
+
+  const handleCompileDailyDrafts = async () => {
+    if (!projectId) return;
+    setIsCompiling(true);
+    try {
+      const compileDailyChangelog = httpsCallable(functions, 'compileDailyChangelog');
+      await compileDailyChangelog({ projectId });
+    } catch (error) {
+      console.error('Failed to compile daily drafts:', error);
+    } finally {
+      setIsCompiling(false);
     }
   };
 
@@ -666,12 +665,23 @@ export default function ProjectDetails() {
 
               {/* Changelog Timeline aligned to the selected tab */}
               <div className="mt-12">
-                <h3 className="text-2xl font-bold text-zinc-50 mb-6 border-b border-zinc-800 pb-4">
-                  {profileTab === 'technical' ? 'Technical Updates' : 'Product Updates'}
-                </h3>
+                <div className="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4">
+                  <h3 className="text-2xl font-bold text-zinc-50">
+                    {profileTab === 'technical' ? 'Technical Updates' : 'Product Updates'}
+                  </h3>
+                  {changelogs.some(log => log.status === 'draft') && (
+                    <button
+                      onClick={handleCompileDailyDrafts}
+                      disabled={isCompiling}
+                      className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-sm font-semibold text-zinc-50 transition-colors disabled:opacity-50"
+                    >
+                      {isCompiling ? 'Compiling...' : 'Compile Daily Drafts'}
+                    </button>
+                  )}
+                </div>
                 <div className="space-y-6">
                   {(profileTab === 'technical' ? technicalChangelogs : nonTechnicalChangelogs).map(log => (
-                    <ChangelogCard key={log.id} log={log} onPublish={handlePublish} onDelete={handleDeleteChangelog} showPublishButton={true} />
+                    <ChangelogCard key={log.id} log={log} onPublish={handlePublish} onDelete={handleDeleteChangelog} showPublishButton={true} mode={profileTab} />
                   ))}
                   {changelogs.length === 0 && (
                     <p className="text-zinc-500 italic">No updates available.</p>
